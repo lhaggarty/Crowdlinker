@@ -1,0 +1,85 @@
+html, body {
+font-family: 'Roboto Light', 'Roboto Bold', sans-serif;
+}
+.text-center {
+text-align: center;
+}
+.roboto-bold {
+  font-family: 'Roboto Bold', sans-serif;
+  display:inline;
+  font-weight: 500;
+}
+
+.element-center {
+  margin: 0 auto;
+}
+.box-border {
+  background-color: #fff;
+  box-shadow: 2px 2px 2px #ababab;
+  border-radius: 3px;
+  margin-right: 25px;
+}
+
+.blank-img {
+  max-height:200px;
+}
+@media (max-width: 768px) {
+  .blank-img {
+    max-height:275px;
+  }
+}
+
+@media (min-width: 768px) {
+  .side-padding {
+    padding-left: 30%;
+    padding-right: 30%;
+  }
+
+  .footer-links {
+    margin-left:-65px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1080px) {
+
+  .price-number-col {
+    margin-left: -25px;
+    margin-right: 25px;
+  }
+}
+
+.pricingSection {
+  background-color: #F4F4F4;
+  padding-top:50px;
+  padding-bottom:75px;
+}
+
+.price-number-col h1 {
+  display:inline;
+  text-align:right;
+}
+
+.action-green {
+  color:#7BCA4D;
+}
+.btn-success {
+  background-color: #7BCA4D;
+  color: #fff;
+}
+.paper-plane-mod {
+  background-color: #fff;
+  color: #E1E8EE;
+}
+#email {
+  border-left: none;
+}
+
+.footer {
+  background-color: #86939E;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  color: #fff;
+}
+.footer a {
+  color: #fff;
+  padding-right: 30px;
+}
