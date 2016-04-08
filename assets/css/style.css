@@ -46,7 +46,12 @@ text-align: center;
     margin-right: 25px;
   }
 }
+@media (min-width: 1080px) {
 
+  #licenseHeader {
+    margin-left: -65px;
+  }
+}
 .pricingSection {
   background-color: #F4F4F4;
   padding-top:50px;

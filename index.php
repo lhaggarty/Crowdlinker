@@ -1,3 +1,3 @@
 <?php
-require($DOCUMENT_ROOT . "layout.php");
+require($DOCUMENT_ROOT . "landingPage.php");
 ?>
