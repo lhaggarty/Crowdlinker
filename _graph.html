@@ -1,6 +1,7 @@
 <div id="graph">
   <div>
-    <canvas id="canvas" height="50px"></canvas>
+    <canvas id="canvas" height="50px" onclick="javascript: alert('This is a test site')"></canvas>
+    <div id="chartjs-tooltip" class="top"></div>
   </div>
   <div id="slider"></div>
   <br>
@@ -9,34 +10,17 @@
 
 
 <script>
+
+
 var randomScalingFactor = function(value){ return Math.round(value*100)};
-var lineChartData = {
-  labels : ["January","February","March","April","May","June","July"],
-  datasets : [
-    {
-      label: "My Second dataset",
-      fillColor : "rgba(151,187,205,0.2)",
-      strokeColor : "rgba(151,187,205,1)",
-      pointColor : "rgba(151,187,205,1)",
-      pointStrokeColor : "#fff",
-      pointHighlightFill : "#fff",
-      pointHighlightStroke : "rgba(151,187,205,1)",
-      data : [randomScalingFactor(1),randomScalingFactor(4),randomScalingFactor(2),
-        randomScalingFactor(10),randomScalingFactor(5),randomScalingFactor(6.9),randomScalingFactor(5)]
-    }
-  ]
+var lineChartData;
+var btn = document.createElement("BUTTON");        // Create a <button> element
+$(btn).attr('type', 'text/html');
+var t = document.createTextNode("CLICK ME");       // Create a text node
+btn.appendChild(t);                                // Append the text to <button>
+// document.body.appendChild(btn);                    // Append <button> to <body>
 
-}
 
-window.onload = function(){
-var ctx = document.getElementById("canvas").getContext("2d");
-window.myLine = new Chart(ctx).Line(lineChartData, {
-  scaleShowHorizontalLines: false,
-  showScale: false,
-  bezierCurve : false,
-  responsive: true
-});
-}
 
 var slider = document.getElementById('slider');
 
@@ -48,4 +32,73 @@ noUiSlider.create(slider, {
 		'max': 24
 	}
 });
+slider.noUiSlider.on("change", function( values, handle ) {
+  updateGraph(Math.round(slider.noUiSlider.get()));
+});
+var myLineChart;
+window.onload = function(){
+  sliderValue=12;
+  lineChartData = {
+    labels : [
+      month[sliderValue], month[sliderValue+1] , month[sliderValue+2],
+      month[sliderValue+3], month[sliderValue+4], month[sliderValue+5] , month[sliderValue+6]
+    ],
+    datasets : [
+      {
+        label: "My Second dataset",
+        fillColor : "rgba(151,187,205,0.2)",
+        strokeColor : "rgba(151,187,205,1)",
+        pointColor : "rgba(151,187,205,1)",
+        pointStrokeColor : "#fff",
+        pointHighlightFill : "#fff",
+        pointHighlightStroke : "rgba(151,187,205,1)",
+        data : [graphValue[sliderValue],graphValue[sliderValue+1],
+        graphValue[sliderValue+2],graphValue[sliderValue+3],
+        graphValue[sliderValue+4],graphValue[sliderValue+5],
+        graphValue[sliderValue+6]]
+      }
+    ]
+
+  }
+
+  var ctx = document.getElementById("canvas").getContext("2d");
+  myLineChart = new Chart(ctx).Line(lineChartData, {
+    scaleShowHorizontalLines: false,
+    scaleShowVerticalLines: true,
+    showScale: true,
+    bezierCurve : false,
+    responsive: true,
+    customTooltips: true,
+    // tooltipTemplate: function(v) {return btn+"<%if (label=='March'){%><%=label%>: <%}%><%= value %> sdf 99";},
+    customTooltips: function(tooltip) {
+        var tooltipEl = $('#chartjs-tooltip');
+        // tooltip will be false if tooltip is not visible or should be hidden
+        if (!tooltip) {
+
+            return;
+        }
+        tooltipEl.removeClass('above below');
+        tooltipEl.addClass(tooltip.yAlign);
+        var parts = tooltip.text.split(":");
+        var innerHtml = '<i class="fa fa-info-circle circle-pad"></i> '+
+        '<span>' + parts[0].trim() + '</span>: <span>€' + parts[1].trim() + ' </span>'+
+        "<button class='btn btn-default'>hello</button>";
+        tooltipEl.html(innerHtml);
+        tooltipEl.css({
+            opacity: 1,
+            left: tooltip.chart.canvas.offsetLeft + tooltip.x + 'px',
+            top: tooltip.chart.canvas.offsetTop + (-105) + tooltip.y + 'px',
+            fontFamily: tooltip.fontFamily,
+            fontSize: tooltip.fontSize,
+            fontStyle: tooltip.fontStyle,
+        });
+        setTimeout(function(){
+          tooltipEl.css({
+                opacity: 0
+            });
+       },3000);
+      }
+  });
+
+}
 </script>

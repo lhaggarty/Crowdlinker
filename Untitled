@@ -1,0 +1,20 @@
+for (var i=sliderValue; i<(sliderValue+7); i++){
+  if (i !== 0) {
+    ', ';
+  };
+  '"'+month[i]+'"';
+};
+
+month[sliderValue], month[sliderValue+1] , month[sliderValue+2],
+month[sliderValue+3], month[sliderValue+4], month[sliderValue+5] , month[sliderValue+6]
+
+--------
+ tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+
+customTooltips: false,
+
+tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+
+tooltipTemplate: "<%if (label=="September"){%>
+                  <%=label%>: "stuff"<%}%>
+                  <%= value 999%>",
