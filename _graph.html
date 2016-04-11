@@ -7,19 +7,24 @@
   <br>
   <p class="text-center">Drag to time travel</p>
 </div>
-
-
+<!-- <div class="token">
+  <input type="text" id="graphValue">
+  <input type="text" id="currentValue">
+  <input type="text" id="type">
+  <input type="text" id="likes">
+  <input type="text" id="views">
+  <input type="text" id="shares">
+  <input type="text" id="temp">
+</div> -->
+<div class="special-value" id="specialValue">Hello</div>
 <script>
 
 
 var randomScalingFactor = function(value){ return Math.round(value*100)};
 var lineChartData;
-var btn = document.createElement("BUTTON");        // Create a <button> element
-$(btn).attr('type', 'text/html');
-var t = document.createTextNode("CLICK ME");       // Create a text node
-btn.appendChild(t);                                // Append the text to <button>
-// document.body.appendChild(btn);                    // Append <button> to <body>
-
+var styleSpan = document.createElement("SPAN");        // Create a <button> element
+$(styleSpan).css({
+});
 
 
 var slider = document.getElementById('slider');
@@ -60,7 +65,6 @@ window.onload = function(){
     ]
 
   }
-
   var ctx = document.getElementById("canvas").getContext("2d");
   myLineChart = new Chart(ctx).Line(lineChartData, {
     scaleShowHorizontalLines: false,
@@ -72,26 +76,44 @@ window.onload = function(){
     // tooltipTemplate: function(v) {return btn+"<%if (label=='March'){%><%=label%>: <%}%><%= value %> sdf 99";},
     customTooltips: function(tooltip) {
         var tooltipEl = $('#chartjs-tooltip');
+        // var type = $('#type').val();
+        // type= type.split(",");
+        // var likes = $('#likes').val();
+        // likes= likes.split(",");
+        // var views = $('#views').val();
+        // views= views.split(",");
+        // var shares = $('#shares').val();
+        // shares= shares.split(",");
+        // var innerHtml;
         // tooltip will be false if tooltip is not visible or should be hidden
         if (!tooltip) {
 
             return;
         }
+
         tooltipEl.removeClass('above below');
         tooltipEl.addClass(tooltip.yAlign);
         var parts = tooltip.text.split(":");
-        var innerHtml = '<i class="fa fa-info-circle circle-pad"></i> '+
-        '<span>' + parts[0].trim() + '</span>: <span>€' + parts[1].trim() + ' </span>'+
-        "<button class='btn btn-default'>hello</button>";
+        var check=-1;
+        var xpos = tooltip.chart.canvas.offsetLeft + tooltip.x ;
+        var ypos = tooltip.chart.canvas.offsetTop + tooltip.y ;
+        specialValue(parts[1].trim(),xpos, ypos);
+            // console.log(check);
+
+          innerHtml = '<i class="fa fa-info-circle circle-pad"></i> '+
+          '<span>' + parts[0].trim() + '</span>: <span>€' + parts[1].trim() + ' </span>'+
+          "";
+          tooltipEl.css({
+              opacity: 1,
+              left: tooltip.chart.canvas.offsetLeft + tooltip.x + 'px',
+              top: tooltip.chart.canvas.offsetTop + (-80) + tooltip.y + 'px',
+              fontFamily: tooltip.fontFamily,
+              fontSize: tooltip.fontSize,
+              fontStyle: tooltip.fontStyle,
+          });
+        
         tooltipEl.html(innerHtml);
-        tooltipEl.css({
-            opacity: 1,
-            left: tooltip.chart.canvas.offsetLeft + tooltip.x + 'px',
-            top: tooltip.chart.canvas.offsetTop + (-105) + tooltip.y + 'px',
-            fontFamily: tooltip.fontFamily,
-            fontSize: tooltip.fontSize,
-            fontStyle: tooltip.fontStyle,
-        });
+        // tooltipEl.css({tooltipCSS});
         setTimeout(function(){
           tooltipEl.css({
                 opacity: 0

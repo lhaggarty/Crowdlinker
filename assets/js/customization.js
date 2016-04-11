@@ -1,8 +1,21 @@
 
 var xhttp;
+
+var type = [];
+type[901]='22:amount';
+type[800]='20:earned';
+type[690]='16:amount';
+type[500]='13:earned';
+type[401]='8:amount';
+type[404]='3:earned';
+console.log(type[5]);
 var month= [];
 var graphValue= [];
+var likes= [];
+var views= [];
+var shares= [];
 $( document ).ready(function() {
+  $("#specialValue").css({opacity:0});
   if (window.XMLHttpRequest) {
     xhttp = new XMLHttpRequest();
   } else {
@@ -18,7 +31,17 @@ xhttp.onreadystatechange = function() {
     for (var i= 0; i<objs.length; i++){
       month.push(objs[i]['month']);
       graphValue.push(objs[i]['graphValue']);
+      likes.push(objs[i]['likes']);
+      views.push(objs[i]['views']);
+      shares.push(objs[i]['shares']);
+
+      // document.getElementById("graphValue").value =$( "#graphValue" ).val() + ((i ==0 ) ? graphValue[i] : "," + graphValue[i]);
+      // document.getElementById("type").value =$( "#type" ).val() + ((i ==0 ) ? type[i] : ',' + type[i]);
+      // document.getElementById("likes").value =$( "#likes" ).val() + ((i ==0 ) ? likes[i] : "," + likes[i]);
+      // document.getElementById("views").value =$( "#views" ).val() + ((i ==0 ) ? views[i] : "," + views[i]);
+      // document.getElementById("shares").value =$( "#shares" ).val() + ((i ==0 ) ? shares[i] : "," + shares[i]);
     };
+
     // console.log(month);
     // console.log(graphValue);
   }
@@ -38,20 +61,34 @@ function updateGraph (sliderValue){
 
   myLineChart.update();
 }
-  // $.getJSON('graphData.json', function (json) {
-  //   var objs = json_string.map(JSON.parse);
-  //   console.log(objs);
-  // });
-  //   function getArray(){
-  //     return $.getJSON('graphData.json');
-  // }
-  //
-  // getArray().done(function(data) {
-  //     // now you can use json
-  //     var objs = data.map(JSON.parse);
-  //     console.log(objs);
-  // });
-  // function initEditCounter(){
-  //   xhttp.open("GET", "editCounter.php", true);
-  //   xhttp.send();
-  // }
+
+function specialValue (currentValue,xcoord,ycoord){
+  var box=$("#specialValue");
+  if (type[currentValue] !== void 0 && type[currentValue].indexOf('a') !==-1) {
+    var cut=type[currentValue].split(":");
+    var i = cut[0];
+    if(type[currentValue].indexOf('e') !==-1){
+      box.html('<h3 class="box-header">€'+ currentValue +'</h3>'+
+                '<span>Earned For ' + month[i] + '</span></h3>');
+      box.css({background: '#838CC7'});
+    } else if (type[currentValue].indexOf('m') !==-1) {
+      box.html('<h3 class="box-header"><i class="fa fa-check-circle-o"></i>' +
+              '<span> Achievement Unlocked</span></h3>' +
+              '<hr style="margin-top:10px">' +
+              '<div class="box-text"><span><i class="fa fa-thumbs-up icon"></i>  '+ likes[i] + ' Likes</span>' +
+              '<span><i class="fa fa-eye icon"></i>'+ views[i] + ' Views</span>' +
+              '<span><i class="fa fa-share icon"></i>'+ shares[i] + ' Shares</span></div>');
+      box.css({background: '#39ADD1'});
+    }
+    box.css ({
+      opacity: 1,
+      left: xcoord + 'px',
+      top: ycoord + 'px',
+    });
+    setTimeout(function(){
+      box.css({
+            opacity: 0
+        });
+   },1500);
+  }
+}
