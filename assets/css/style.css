@@ -110,6 +110,27 @@ text-align: center;
 .blank-img {
   max-height:200px;
 }
+.icon-bubble {
+
+  margin-left: 128px;
+  height: 30px;
+  width: 30px;
+}
+.slack {
+  margin-top: -51px;
+  height: 22px;
+  width: 22px;
+}
+.slack-bg {
+  height: 30px;
+  width: 30px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  /*text-align: center;
+  color: white;*/
+  padding: 15px 0 0 0;
+}
 @media (max-width: 768px) {
   .blank-img {
     max-height:275px;

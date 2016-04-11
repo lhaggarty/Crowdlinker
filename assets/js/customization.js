@@ -92,3 +92,6 @@ function specialValue (currentValue,xcoord,ycoord){
    },1500);
   }
 }
+$( window ).resize(function() {
+  
+});
