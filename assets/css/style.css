@@ -199,3 +199,10 @@ text-align: center;
   color: #fff;
   padding-right: 30px;
 }
+
+#person {
+  max-width:200px;
+  min-width: 150px;
+  z-index: -1;
+  margin-top:-50px;
+}

@@ -93,5 +93,6 @@ function specialValue (currentValue,xcoord,ycoord){
   }
 }
 $( window ).resize(function() {
-  
+  $("#person").attr("src", "assets/images/irina_bykova-with-bubble.png");
+  $(".icon-bubble").hide();
 });
